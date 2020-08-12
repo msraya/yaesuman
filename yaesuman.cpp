@@ -4,7 +4,7 @@
 #include "wiresx.h"
 #include <gdiplus.h>
 
-/*  Declaración del procedimiento de ventana  */
+/*  DeclaraciÃ³n del procedimiento de ventana  */
 INT_PTR CALLBACK DlgProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK DlgConfigProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK AboutDialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
@@ -70,7 +70,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
 {
 	INITCOMMONCONTROLSEX icc;
     HWND hwnd;               /* Manipulador de ventana */
-    MSG mensaje;             /* Mensajes recibidos por la aplicación */
+    MSG mensaje;             /* Mensajes recibidos por la aplicaciÃ³n */
     RECT rect;
 	HKEY hKey;
 	std::wstring strValueOfCallSign;
@@ -450,8 +450,15 @@ INT_PTR CALLBACK DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam)
 #define BISEL 25
 						g.FillRectangle(b_grey, (int)rectCW.left, (int)rectCW.top+BISEL, (int)(rectCW.right-rectCW.left), (int)(rectCW.bottom-rectCW.top)-BISEL);
 					
-						iHeight = (img->GetHeight()*iWidth)/img->GetWidth();
-						rectCW.bottom = rectCW.top + iHeight; // child window rect in parent window space					
+						if (img->GetWidth() > img->GetHeight()) {
+							iWidth = rectCW.right - rectCW.left;
+							iHeight = (img->GetHeight()*iWidth)/img->GetWidth();
+							rectCW.bottom = rectCW.top + iHeight; // child window rect in parent window space
+						} else {
+							iHeight = rectCW.bottom - rectCW.top;
+							iWidth = (img->GetWidth()*iHeight)/img->GetHeight();
+							rectCW.right = rectCW.left + iWidth;	
+						}											
 					
 						g.DrawImage(img, (int)rectCW.left, (int)rectCW.top+BISEL, (int)(rectCW.right-rectCW.left), (int)(rectCW.bottom-rectCW.top)-BISEL);
 						EndPaint( hDlg, &ps );
