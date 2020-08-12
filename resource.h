@@ -22,10 +22,11 @@
 #define IDPGOOGLE                               118
 #define IDPERASE                                121
 #define IDPINSERT                               122
-#define IDSHFILE                                123
 #define ID_CANCEL                               125
 #define IDD_DIALOG1                             126
 #define ID_CALLSIGN                             127
 #define ID_GPS                                  128
 #define ID_CONFIG                               130
 #define IDREMOVEDUP                             131
+#define ID_GROUP                                132
+#define ID_QUALITY                              133

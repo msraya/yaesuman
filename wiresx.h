@@ -11,6 +11,7 @@
 typedef struct Main_Config {
 	char callsign[17];
 	char Gps[21];
+	char Quality[5];	
 } MainConfig;
 
 struct Txt_Node {
@@ -35,7 +36,7 @@ struct Txt_Node {
 typedef struct Txt_Node TxtNode;
 
 struct Pct_Node {
-	uint16_t mark;           // 0x69
+	uint16_t mark;           // 0x69 0x70
 	uint16_t index;   		// increment in two units
 	uint8_t repeater[5];   	//5 bytes ASCII
 	uint8_t To[16]; 		//16 bytes ASCII
@@ -56,13 +57,13 @@ typedef struct Pct_Node PctNode;
 
 class CData {
 public:
-	CData(char *callsign, char *Gps);
+	CData(char *callsign, char *Gps, char *Quality);
 	~CData();
 	
 	bool LoadFile(const char *file_name);
 	bool SaveFile(const char *file_name);
 	
-	void config(char *callsign, char *Gps);
+	void config(char *callsign, char *Gps, char *Quality);
 	
 	void reset(void);
 	void next(void);	
@@ -117,7 +118,8 @@ private:
 	PctNode *		m_ptail;
 	PctNode *		m_pactual;
 	uint16_t		m_pnodes;
-	uint16_t		m_pictures;			
+	uint16_t		m_pictures;
+	uint32_t		m_pos_msg;			
 	MainConfig 		m_config;
 	bool			m_changed;	
 	void dump(char *buffer, uint8_t *data,uint16_t size);
