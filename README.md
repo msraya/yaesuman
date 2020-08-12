@@ -1,6 +1,8 @@
 # yaesuman
 Yaesu SD Card manager. This is beta version 0.3.
 
+![Alt text](yaesuman.png?raw=true "Main Window")
+
 For this program to work you must follow the instructions:
   (1) Power off Transceiver. Remove SD Card. Insert SDCard into PC.
   (2) Make backup of SDCARD. You could screw up your files easily.
