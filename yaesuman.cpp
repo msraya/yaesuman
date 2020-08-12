@@ -450,8 +450,17 @@ INT_PTR CALLBACK DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam)
 #define BISEL 25
 						g.FillRectangle(b_grey, (int)rectCW.left, (int)rectCW.top+BISEL, (int)(rectCW.right-rectCW.left), (int)(rectCW.bottom-rectCW.top)-BISEL);
 					
-						iHeight = (img->GetHeight()*iWidth)/img->GetWidth();
-						rectCW.bottom = rectCW.top + iHeight; // child window rect in parent window space					
+						if (img->GetWidth() > img->GetHeight()) {
+							iWidth = rectCW.right - rectCW.left;
+							iHeight = (img->GetHeight()*iWidth)/img->GetWidth();
+							rectCW.bottom = rectCW.top + iHeight; // child window rect in parent window space
+						} else {
+							iHeight = rectCW.bottom - rectCW.top;
+							iWidth = (img->GetWidth()*iHeight)/img->GetHeight();
+							rectCW.right = rectCW.left + iWidth;	
+						}
+								
+						//rectCW.right = rectCW.left + iWidth;			
 					
 						g.DrawImage(img, (int)rectCW.left, (int)rectCW.top+BISEL, (int)(rectCW.right-rectCW.left), (int)(rectCW.bottom-rectCW.top)-BISEL);
 						EndPaint( hDlg, &ps );
