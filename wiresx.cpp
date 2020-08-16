@@ -973,13 +973,17 @@ void CData::add_pnode(uint8_t *data){
         memcpy(tmp->From,m_config.callsign,16U);
 	    if (m_config.Gps[0]!=0) memcpy(tmp->Gps,m_config.Gps,20U);
 	    else memset(tmp->Gps,0xFF,20U); // Gps blank
-		strcpyfill(tmp->To,(char *)"ALL",16U);
+		//strcpyfill(tmp->To,(char *)"ALL",16U);
 		strcpyfill(tmp->subject,(char *)"",16U);
 		memset(tmp->fill,0x00,8U);
-		tmp->mark=0x70;  //70 means get from received
-		tmp->size=0;	
-		buf1[2] = m_pnodes/256;
-		buf1[3] = m_pnodes%256;		 
+	//	((tmp->mark=0x70;  //70 means get from received
+		tmp->size=0;
+		buf1[0] = 0x0;
+		buf1[1] = 0x0;		
+		buf1[2] = 0x0;		
+		buf1[3] = 0x0;		
+		//buf1[2] = m_pnodes/256;
+		//buf1[3] = m_pnodes%256;		 
 	} else {
 		memcpy(buf1,data,128U);
 	    memcpy(tmp_cad,tmp->filename,6U);
@@ -1074,10 +1078,18 @@ void CData::remove_pdup(void) {
 	PctNode *actual,*tmp;
 	uint16_t i,j;
 	uint32_t size1,size2;
+	uint8_t *buf1;	
+	    
 
 	i=0;
 	actual = m_phead;
 	while (actual!=NULL) {
+    	buf1 = (uint8_t *) &(actual->mark);
+		memset(actual->To,0x20,16U);
+		buf1[0] = 0x0;
+		buf1[1] = 0x0;		
+		buf1[2] = 0x0;		
+		buf1[3] = 0x0;			
 		tmp = actual->next;
 		j=1;
 		size1 = __builtin_bswap32(actual->size);

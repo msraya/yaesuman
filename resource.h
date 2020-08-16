@@ -30,3 +30,4 @@
 #define IDREMOVEDUP                             131
 #define ID_GROUP                                132
 #define ID_QUALITY                              133
+#define ID_PSUBJECT                             134

@@ -218,8 +218,11 @@ static void load_pdata(HWND hDlg) {
   	 dlg_load(hDlg,ID_PREPEAT);
   	 m_data->pto(cadena,T_READ);
   	 dlg_load(hDlg,ID_PTO);		              	 
-  	 m_data->pposition(cadena,T_READ);
+  	 m_data->pposition(cadena,T_READ); 	 
   	 dlg_load(hDlg,ID_PPOSITION);
+  	 m_data->psubject(cadena,T_READ);
+  	 dlg_load(hDlg,ID_PSUBJECT);  	 
+	 SendDlgItemMessage(hDlg, ID_PSUBJECT, EM_SETMODIFY, 0, 0);  	 
 }
 
 static void get_date(char *date) {
@@ -378,6 +381,7 @@ INT_PTR CALLBACK DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam)
 			}
 			SendDlgItemMessage(hDlg, ID_TEXT, EM_LIMITTEXT, 80, 0L);
 			SendDlgItemMessage(hDlg, ID_SUBJECT, EM_LIMITTEXT, 16, 0L);
+			SendDlgItemMessage(hDlg, ID_PSUBJECT, EM_LIMITTEXT, 16, 0L);			
 		   	if (m_data->num_nodes()>0) SendDlgItemMessage(hDlg, ID_LISTA, LB_SETCURSEL, 0, 0);			
 		   	if (m_data->num_pnodes()>0) SendDlgItemMessage(hDlg, ID_PLISTA, LB_SETCURSEL, 0, 0);			
            	SetFocus(GetDlgItem(hDlg, ID_PLISTA));           	
@@ -459,8 +463,6 @@ INT_PTR CALLBACK DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam)
 							iWidth = (img->GetWidth()*iHeight)/img->GetHeight();
 							rectCW.right = rectCW.left + iWidth;	
 						}
-								
-						//rectCW.right = rectCW.left + iWidth;			
 					
 						g.DrawImage(img, (int)rectCW.left, (int)rectCW.top+BISEL, (int)(rectCW.right-rectCW.left), (int)(rectCW.bottom-rectCW.top)-BISEL);
 						EndPaint( hDlg, &ps );
@@ -477,7 +479,11 @@ INT_PTR CALLBACK DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam)
             	if (SendDlgItemMessage(hDlg, ID_SUBJECT, EM_GETMODIFY, 0, 0)) {
       				GetDlgItemText(hDlg, ID_SUBJECT, cadena, 16);
       				m_data->subject(cadena,T_WRITE);
-				}	
+				}
+            	if (SendDlgItemMessage(hDlg, ID_PSUBJECT, EM_GETMODIFY, 0, 0)) {
+      				GetDlgItemText(hDlg, ID_PSUBJECT, cadena, 16);
+      				m_data->psubject(cadena,T_WRITE);
+				}					
 				if (m_data->SaveFile(m_mainfile)) {
 					MessageBox(0, "Cannot save file.", "Error", MB_ICONEXCLAMATION | MB_OK);
 				}				
@@ -547,8 +553,9 @@ INT_PTR CALLBACK DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam)
 					CLSID encId;
 					GUID guidJpg = {};
 					Gdiplus::EncoderParameters encoderParameters;
-   					ULONG             quality;
-   					Gdiplus::Status            stat;
+   					ULONG         quality;
+   					UINT  dx,dy;
+   					Gdiplus::Status stat;
 					HRESULT   hres;					  
               	
 					// Initialize OPENFILENAME
@@ -574,9 +581,18 @@ INT_PTR CALLBACK DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam)
 						if(stat != Gdiplus::Ok) {
 						    MessageBox(0,"Error loading jpg file","Error", MB_ICONEXCLAMATION | MB_OK);
 						    return 0;
-						}				        
-		   				if (!strcmp(tmp_config.Quality,"LOW")) img = ResizeClone(tmp_img,160,120);	
-						else if (!strcmp(tmp_config.Quality,"MID")) img = ResizeClone(tmp_img,320,240);	 					        
+						}	
+						dx = tmp_img->GetWidth();
+						dy = tmp_img->GetHeight();
+									        
+		   				if (!strcmp(tmp_config.Quality,"LOW")) {
+		   					if ((dx == 160) && (dy == 120))  img = (Gdiplus::Bitmap *) tmp_img->Clone(0, 0, dx, dy,tmp_img->GetPixelFormat());
+		   					else img = ResizeClone(tmp_img,160,120);
+						   }	
+						else if (!strcmp(tmp_config.Quality,"MID")) {
+							if ((dx == 320) && (dy == 240))  img = (Gdiplus::Bitmap *) tmp_img->Clone(0, 0, dx, dy,tmp_img->GetPixelFormat()); 
+		   					else img = ResizeClone(tmp_img,320,240); 							
+						}	 					        
 				        else {
 				       		MessageBox(0,"Error with Quality setting","Error", MB_ICONEXCLAMATION | MB_OK);
 							return 0;
@@ -645,7 +661,11 @@ INT_PTR CALLBACK DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam)
           	       break;
               case ID_PLISTA:
               	 switch(HIWORD(wParam)) {
-              		case LBN_SELCHANGE:             			
+              		case LBN_SELCHANGE:
+              			if (SendDlgItemMessage(hDlg, ID_PSUBJECT, EM_GETMODIFY, 0, 0)) {
+              				GetDlgItemText(hDlg, ID_PSUBJECT, cadena, 16);
+              				m_data->psubject(cadena,T_WRITE);
+						  }						               			
 						load_pdata(hDlg);
 						m_data->filename(filen,T_READ);
 						if (strlen(filen)!=0) {
@@ -658,7 +678,6 @@ INT_PTR CALLBACK DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam)
 				            img = (Gdiplus::Bitmap *) new Gdiplus::Bitmap(cadw.c_str());
 				            InvalidateRect(hDlg, NULL, FALSE);
 						}
-              	 
 						break;
 				   }
           	       break;
