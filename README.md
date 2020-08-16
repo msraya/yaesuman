@@ -1,7 +1,7 @@
 # yaesuman
 Yaesu SD Card manager. This is beta version 0.3.
 You can download exe file from here: https://github.com/msraya/yaesuman/releases/download/0.3/yaesuman.exe
-Please submit coments for bug fix and improvments in the pi-star forum: https://forum.pistar.uk/
+Please submit coments for bug fix and improvments to ea7ee@hotmail.com
 Program is in beta phase, so not guarantees, use at your own risk.
 
 ![Alt text](yaesuman.png?raw=true "Main Window")
