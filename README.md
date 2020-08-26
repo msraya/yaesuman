@@ -1,6 +1,6 @@
 # yaesuman
-Yaesu SD Card manager. This is beta version 0.3.
-You can download exe file from here: https://github.com/msraya/yaesuman/releases/download/0.3/yaesuman.exe
+Yaesu SD Card manager. This is beta version 0.4, now with labeling of pictures.
+You can download exe file from here: https://github.com/msraya/yaesuman/releases/download/0.4/yaesuman.exe
 Please submit comments for bug fix and improvements to ea7ee@hotmail.com
 Program is in beta phase, so not guarantees, use at your own risk.
 
