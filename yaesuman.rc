@@ -16,7 +16,7 @@
 LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
 DialogoPrueba DIALOG 0, 0, 643, 225
 STYLE DS_3DLOOK | DS_CENTER | DS_MODALFRAME | DS_SHELLFONT | WS_CAPTION | WS_VISIBLE | WS_POPUP | WS_SYSMENU
-CAPTION "Yaesu Manager v0.4_alfa 16/08/2010"
+CAPTION "Yaesu Manager v0.5_beta 13/09/2010"
 FONT 8, "Helv"
 {
     GROUPBOX        "", ID_GROUP, 380, 10, 250, 187, 0, WS_EX_LEFT
@@ -113,13 +113,13 @@ VS_VERSION_INFO VERSIONINFO
         BLOCK "080904B0"
         {
             VALUE "CompanyName", "EA7EE"
-            VALUE "FileDescription", "Win32 Yaesu Manager v0.2."
-            VALUE "FileVersion", "0.2.0.0"
+            VALUE "FileDescription", "Win32 Yaesu Manager v0.4."
+            VALUE "FileVersion", "0.4.0.0"
             VALUE "InternalName", "Win32App"
             VALUE "LegalCopyright", "©2020 EA7EE"
             VALUE "OriginalFilename", "YaesuMan.exe"
-            VALUE "ProductName", "Win32 Yaesu Manager v0.2"
-            VALUE "ProductVersion", "0.2.0.0"
+            VALUE "ProductName", "Win32 Yaesu Manager v0.4"
+            VALUE "ProductVersion", "0.4.0.0"
         }
     }
     BLOCK "VarFileInfo"

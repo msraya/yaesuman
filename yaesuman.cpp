@@ -473,15 +473,15 @@ INT_PTR CALLBACK DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam)
     		switch(LOWORD(wParam)) {
               case IDOK: 
 				if (SendDlgItemMessage(hDlg, ID_TEXT, EM_GETMODIFY, 0, 0)) {
-      				GetDlgItemText(hDlg, ID_TEXT, cadena, 80);
+      				GetDlgItemText(hDlg, ID_TEXT, cadena, 81);
       				m_data->text_data(cadena,T_WRITE);
 				}
             	if (SendDlgItemMessage(hDlg, ID_SUBJECT, EM_GETMODIFY, 0, 0)) {
-      				GetDlgItemText(hDlg, ID_SUBJECT, cadena, 16);
+      				GetDlgItemText(hDlg, ID_SUBJECT, cadena, 17);
       				m_data->subject(cadena,T_WRITE);
 				}
             	if (SendDlgItemMessage(hDlg, ID_PSUBJECT, EM_GETMODIFY, 0, 0)) {
-      				GetDlgItemText(hDlg, ID_PSUBJECT, cadena, 16);
+      				GetDlgItemText(hDlg, ID_PSUBJECT, cadena, 17);
       				m_data->psubject(cadena,T_WRITE);
 				}					
 				if (m_data->SaveFile(m_mainfile)) {
@@ -648,11 +648,11 @@ INT_PTR CALLBACK DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam)
               	 switch(HIWORD(wParam)) {
               		case LBN_SELCHANGE:          			
               			if (SendDlgItemMessage(hDlg, ID_TEXT, EM_GETMODIFY, 0, 0)) {
-              				GetDlgItemText(hDlg, ID_TEXT, cadena, 80);
+              				GetDlgItemText(hDlg, ID_TEXT, cadena, 81);
               				m_data->text_data(cadena,T_WRITE);
 						  }
               			if (SendDlgItemMessage(hDlg, ID_SUBJECT, EM_GETMODIFY, 0, 0)) {
-              				GetDlgItemText(hDlg, ID_SUBJECT, cadena, 16);
+              				GetDlgItemText(hDlg, ID_SUBJECT, cadena, 17);
               				m_data->subject(cadena,T_WRITE);
 						  }						  
 						load_data(hDlg);		              	 
@@ -663,7 +663,7 @@ INT_PTR CALLBACK DlgProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam)
               	 switch(HIWORD(wParam)) {
               		case LBN_SELCHANGE:
               			if (SendDlgItemMessage(hDlg, ID_PSUBJECT, EM_GETMODIFY, 0, 0)) {
-              				GetDlgItemText(hDlg, ID_PSUBJECT, cadena, 16);
+              				GetDlgItemText(hDlg, ID_PSUBJECT, cadena, 17);
               				m_data->psubject(cadena,T_WRITE);
 						  }						               			
 						load_pdata(hDlg);
@@ -816,7 +816,7 @@ INT_PTR CALLBACK DlgConfigProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam
         case WM_COMMAND:
     		switch(LOWORD(wParam)) {
               case IDOK: 
-              	 GetDlgItemText(hDlg, ID_CALLSIGN, Datos->callsign, 16);
+              	 GetDlgItemText(hDlg, ID_CALLSIGN, Datos->callsign, 17);
               	 GetDlgItemText(hDlg, ID_GPS, Datos->Gps, 21);
               	 index = SendDlgItemMessage(hDlg, ID_QUALITY,  CB_GETCURSEL, (WPARAM)index, (LPARAM)0);
               	 switch(index) {
